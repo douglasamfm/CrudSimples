@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Prodap.Models.CentroDistribuicao>
+
+@{
+    ViewBag.Title = "ObterListaCentroDistribuicao";
+}
+
+<h2>ObterListaCentroDistribuicao</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NOME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ENDERECO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TELEFONE)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ENDERECO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TELEFONE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
