@@ -39,17 +39,25 @@ namespace Prodap.Controllers
                     }                  
 
                 }
-                return View();
+                return RedirectToAction("ObterListaCentroDistribuicao");
             }
             catch(Exception)
             {
-                return View();
-                
+                ViewBag.Mensagem = "Não foi possivel salvar.";
+                return RedirectToAction("ObterListaCentroDistribuicao");
+
             }        
         
         }
 
         [HttpGet]
+        public ActionResult AlterarCentroDistribuicao()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
         public ActionResult AlterarCentroDistribuicao( int ID)
         {
             _repositorio = new CentroDistribuicaoRepositorio();
@@ -72,11 +80,12 @@ namespace Prodap.Controllers
                     }
 
                 }
-                return View();
+                return RedirectToAction("ObterListaCentroDistribuicao");
             }
             catch (Exception)
             {
-                return View();
+                ViewBag.Mensagem = "Não foi possivel alterar.";
+                return RedirectToAction("ObterListaCentroDistribuicao");
 
             }
 

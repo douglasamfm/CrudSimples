@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Prodap.Models.CentroDistribuicao>
 
 @{
-    ViewBag.Title = "ObterListaCentroDistribuicao";
+    ViewBag.Title = "Centro  de Distribuição";
 }
 
-<h2>ObterListaCentroDistribuicao</h2>
+<h2>Centro  de Distribuição</h2>
 
 <p>
-    @Html.ActionLink("Novo", "Create")
+    @Html.ActionLink("Novo", "IncluirCentroDistribuicao")
 </p>
 <table class="table">
     <tr>
@@ -26,27 +26,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ENDERECO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TELEFONE)
-        </td>
-        <td>
-            @Html.ActionLink("Alterar", "Edit", new { id=item.ID }) |  
-            @Html.ActionLink("Deletar", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-   <br>
+    @foreach (var item in Model)
+    {
+<tr>
+   
+   
+    <td>
+        @Html.DisplayFor(modelItem => item.NOME)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UF)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ENDERECO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TELEFONE)
+    </td>
+    <td>
+        @Html.ActionLink("Alterar", "AlterarCentroDistribuicao", new { id = item.ID }) |
+        @Html.ActionLink("Deletar", "Delete", new { id = item.ID }, new { onclick = "return confirm('Tem certeza que deseja excluir?')" })
+    </td>
 
-}
+</tr>
+
+
+    }
 
 </table>
