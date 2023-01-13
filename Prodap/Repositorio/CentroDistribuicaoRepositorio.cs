@@ -64,7 +64,7 @@ namespace Prodap.Repositorio
                 List<CentroDistribuicao> CDlist = new List<CentroDistribuicao>();
 
                 _sql = string.Empty;
-                _sql = "SELECT NOME,ENDERECO,TELEFONE, UF  FROM CentroDistribuicao ORDER BY NOME";
+                _sql = "SELECT ID,NOME,ENDERECO,TELEFONE, UF  FROM CentroDistribuicao ORDER BY NOME";
 
                 SqlCommand command = new SqlCommand(_sql, _conexao);
 
