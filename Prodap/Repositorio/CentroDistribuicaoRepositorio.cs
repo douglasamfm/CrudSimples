@@ -139,7 +139,7 @@ namespace Prodap.Repositorio
                 Connection();
 
                 _sql = string.Empty;
-                _sql = "DEELETE FROM   CentroDistribuicao  WHERE ID = @ID ";
+                _sql = "DELETE FROM   CentroDistribuicao  WHERE ID = @ID ";
 
                 SqlCommand command = new SqlCommand(_sql, _conexao);
 
