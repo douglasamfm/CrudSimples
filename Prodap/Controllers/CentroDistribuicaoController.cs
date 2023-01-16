@@ -34,27 +34,26 @@ namespace Prodap.Controllers
                 {
                     _repositorio = new CentroDistribuicaoRepositorio();
 
-
                     bool mExists = (_repositorio.ListarCentroDistribuicao().Any(T => T.NOME.ToUpper() == _CdObj.NOME.ToUpper()));
 
                     if (!mExists)               
                     {
-                    if (_repositorio.AddCentroDistribuicao(_CdObj)) 
-                    {
-                        ViewBag.Mensagem = "Centro de Distribuição Cadastrado com sucesso.";
-                    }                  
+                        if (_repositorio.AddCentroDistribuicao(_CdObj)) 
+                        {
+                            ViewBag.Mensagem = "Centro de Distribuição Cadastrado com sucesso.";                            
+                        }                  
                     }
                     else
                     {
-                        ViewBag.Mensagem = "Centro de Distribuição ja existe.";
+                        ViewBag.Mensagem = "Centro de Distribuição ja existe.";                    
 
-                }
+                    }
             }
                 return RedirectToAction("ObterListaCentroDistribuicao");
             }
             catch(Exception)
             {
-                
+                return RedirectToAction("ObterListaCentroDistribuicao");
             }        
         
         }
@@ -78,21 +77,27 @@ namespace Prodap.Controllers
         public ActionResult AlterarCentroDistribuicao(int ID,CentroDistribuicao _CdObj)
         {
             try
-            {
+            { 
                 if (ModelState.IsValid)
                 {
                     _repositorio = new CentroDistribuicaoRepositorio();
 
                     if (_repositorio.UpdCentroDistribuicao(_CdObj))
                     {
-                        ViewBag.Mensagem = "Centro de Distribuição alterado com sucesso.";
+                        ViewBag.Mensagem = "Centro de Distribuição alterado com sucesso.";                
                     }
-
+                    else
+                    {
+                        ViewBag.Mensagem = "Erro ao alterar Centro de Distribuição.";           
+                    }
+                  
                 }
+
+            return RedirectToAction("ObterListaCentroDistribuicao");
             }
             catch (Exception)
             {
-
+                return RedirectToAction("ObterListaCentroDistribuicao");
             }
 
         }
