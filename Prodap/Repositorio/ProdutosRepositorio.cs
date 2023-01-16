@@ -133,7 +133,7 @@ namespace Prodap.Repositorio
 
         }
 
-        public bool DeleteProdutos(int _ID)
+        public bool DeleteProdutos(string _ID)
         {
 
             try
