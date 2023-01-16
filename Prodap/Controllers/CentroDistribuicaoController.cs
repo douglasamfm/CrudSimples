@@ -39,25 +39,22 @@ namespace Prodap.Controllers
 
                     if (!mExists)               
                     {
-                        if (_repositorio.AddCentroDistribuicao(_CdObj))
-                        {
-                            ViewBag.Mensagem = "Centro de Distribuição Cadastrado com sucesso.";
-                        }
+                    if (_repositorio.AddCentroDistribuicao(_CdObj)) 
+                    {
+                        ViewBag.Mensagem = "Centro de Distribuição Cadastrado com sucesso.";
+                    }                  
                     }
                     else
                     {
                         ViewBag.Mensagem = "Centro de Distribuição ja existe.";
 
-                    }
-
                 }
+            }
                 return RedirectToAction("ObterListaCentroDistribuicao");
             }
             catch(Exception)
             {
-                ViewBag.Mensagem = "Não foi possivel salvar.";
-                return RedirectToAction("ObterListaCentroDistribuicao");
-
+                
             }        
         
         }
@@ -92,12 +89,9 @@ namespace Prodap.Controllers
                     }
 
                 }
-                return RedirectToAction("ObterListaCentroDistribuicao");
             }
             catch (Exception)
             {
-                ViewBag.Mensagem = "Não foi possivel alterar.";
-                return RedirectToAction("ObterListaCentroDistribuicao");
 
             }
 
