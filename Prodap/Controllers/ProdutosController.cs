@@ -36,15 +36,20 @@ namespace Prodap.Controllers
                     _repositorio = new ProdutosRepositorio();
                     _repositorioCD = new CentroDistribuicaoRepositorio();
 
-                   var CENTRODISTRIBUICAO = _repositorioCD.ListarCentroDistribuicao().FirstOrDefault(T => T.NOME.ToUpper() == _Prodobj.CENTRODISTRIBUICAO.ToUpper());
-                       
-                   if (_repositorio.AddProdutos(_Prodobj,CENTRODISTRIBUICAO.ID)) 
-                   {
-                       ViewBag.Mensagem = "Produto Cadastrado com sucesso.";                            
-                   }                  
-                   else
+                    var CENTRODISTRIBUICAO = _repositorioCD.ListarCentroDistribuicao().FirstOrDefault(T => T.NOME.ToUpper() == _Prodobj.CENTRODISTRIBUICAO.ToUpper());
+
+                    bool ProdExists = (_repositorio.ListarProdutos().Any(P => P.ID_PRODUTO.ToUpper() == _Prodobj.ID_PRODUTO.ToUpper()));
+
+                    if (!ProdExists)
+                    { 
+                        if (_repositorio.AddProdutos(_Prodobj, CENTRODISTRIBUICAO.ID))
+                        {
+                            ViewBag.Mensagem = "Produto Cadastrado com sucesso.";
+                        };
+                    }
+                    else
                     {
-                        ViewBag.Mensagem = "Centro de Distribuição ja existe.";                    
+                        ViewBag.Mensagem = "Produto ja existe.";
 
                     }
             }
