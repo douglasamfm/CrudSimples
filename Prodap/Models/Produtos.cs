@@ -25,7 +25,7 @@ namespace Prodap.Models
 
         [Display(Name = "Centro de Distribuição:")]
         [Required(ErrorMessage = "Informe o Centro de Distribuição.")]
-        public int ID_CENTRODISTRIBUICAO { get; set; }
+        public string CENTRODISTRIBUICAO { get; set; }
 
     }
 }

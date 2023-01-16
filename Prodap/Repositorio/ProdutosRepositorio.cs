@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace Prodap.Repositorio
 {
-    public class CentroDistribuicaoRepositorio
+    public class ProdutosRepositorio
     {
 
         private SqlConnection _conexao;
@@ -20,7 +20,7 @@ namespace Prodap.Repositorio
             _conexao = new SqlConnection(constr);
         }
 
-        public bool AddCentroDistribuicao(CentroDistribuicao CdObj)
+        public bool AddProdutos(Produtos ProdObj, int ID_CENTRODISTRIBUICAO)
         {
 
             try
@@ -28,15 +28,15 @@ namespace Prodap.Repositorio
                 Connection();
 
                 _sql = string.Empty;
-                _sql = "insert into CentroDistribuicao ( NOME,ENDERECO,TELEFONE,UF  ) VALUES  ( @NOME,@ENDERECO,@TELEFONE,@UF  )";
+                _sql = "insert into Produtos (ID_PRODUTO, NOME,QUANTIDADE,ID_CENTRODISTRIBUICAO  ) VALUES  ( @ID_PRODUTO, @NOME,@QUANTIDADE,@ID_CENTRODISTRIBUICAO   )";
    
                 SqlCommand command = new SqlCommand(_sql, _conexao);
- 
+
                 //Adicionando o valor das textBox nos parametros do comando
-                command.Parameters.Add(new SqlParameter("@NOME", CdObj.NOME));
-                command.Parameters.Add(new SqlParameter("@ENDERECO", CdObj.ENDERECO));
-                command.Parameters.Add(new SqlParameter("@TELEFONE", CdObj.TELEFONE));
-                command.Parameters.Add(new SqlParameter("@UF", CdObj.UF));
+                command.Parameters.Add(new SqlParameter("@ID_PRODUTO", ProdObj.ID_PRODUTO));
+                command.Parameters.Add(new SqlParameter("@NOME", ProdObj.NOME));
+                command.Parameters.Add(new SqlParameter("@QUANTIDADE", ProdObj.QUANTIDADE));
+                command.Parameters.Add(new SqlParameter("@ID_CENTRODISTRIBUICAO", ID_CENTRODISTRIBUICAO));
                 //abre a conexao
                 _conexao.Open();
                 //executa o comando com os parametros que foram adicionados acima
@@ -54,15 +54,20 @@ namespace Prodap.Repositorio
 
         }
 
-        public List<CentroDistribuicao> ListarCentroDistribuicao()
+        public List<Produtos> ListarProdutos()
         {
-
                 Connection();
 
-                List<CentroDistribuicao> CDlist = new List<CentroDistribuicao>();
+                List<Produtos> ProdList = new List<Produtos>();
 
-                _sql = string.Empty;
-                _sql = "SELECT ID,NOME,ENDERECO,TELEFONE, UF  FROM CentroDistribuicao ORDER BY NOME";
+            _sql = string.Empty;
+            _sql = " SELECT P.ID_PRODUTO,              " +
+                    "       P.NOME,                    " +
+                    " 	    P.QUANTIDADE,              " +
+                    " 	    CD.NOME CENTRODISTRIBUICAO " +
+                    "       FROM Produtos P            " +
+                    "  JOIN CentroDistribuicao CD ON CD.ID = P.ID_CENTRODISTRIBUICAO " +
+                    "  ORDER BY P.NOME ";
 
                 SqlCommand command = new SqlCommand(_sql, _conexao);
 
@@ -73,26 +78,25 @@ namespace Prodap.Repositorio
               
                 while (reader.Read())
                 {
-                    CentroDistribuicao CD = new CentroDistribuicao()
+                    Produtos CD = new Produtos()
                     {
 
-                        ID = Convert.ToInt32(reader["ID"]),
+                        ID_PRODUTO = reader["ID_PRODUTO"].ToString(),
                         NOME = reader["NOME"].ToString(),
-                        ENDERECO = reader["ENDERECO"].ToString(),
-                        TELEFONE = reader["TELEFONE"].ToString(),
-                        UF = reader["UF"].ToString()
+                        QUANTIDADE = Convert.ToInt32(reader["QUANTIDADE"]),
+                        CENTRODISTRIBUICAO = reader["CENTRODISTRIBUICAO"].ToString()
 
                     };
 
-                    CDlist.Add(CD);
+                ProdList.Add(CD);
                 }
 
             _conexao.Close();
-                return CDlist;
+                return ProdList;
 
         }
 
-        public bool UpdCentroDistribuicao(CentroDistribuicao CdObj)
+        public bool UpdProdutos(Produtos ProdObj, int ID_CENTRODISTRIBUICAO)
         {
 
             try
@@ -100,18 +104,18 @@ namespace Prodap.Repositorio
                 Connection();
 
                 _sql = string.Empty;
-                _sql = "update  CentroDistribuicao set  NOME = @NOME " +
-                       " ,ENDERECO = @ENDERECO,TELEFONE = @TELEFONE,UF  = @UF" +
-                       " WHERE ID = @ID ";
+                _sql = "update  Produtos set  NOME = @NOME " +
+                       " ,QUANTIDADE = @QUANTIDADE,ID_CENTRODISTRIBUICAO = @ID_CENTRODISTRIBUICAO" +
+                       " WHERE ID_PRODUTO = @ID_PRODUTO ";
 
                 SqlCommand command = new SqlCommand(_sql, _conexao);
 
                 //Adicionando o valor das textBox nos parametros do comando
-                command.Parameters.Add(new SqlParameter("@NOME", CdObj.NOME));
-                command.Parameters.Add(new SqlParameter("@ENDERECO", CdObj.ENDERECO));
-                command.Parameters.Add(new SqlParameter("@TELEFONE", CdObj.TELEFONE));
-                command.Parameters.Add(new SqlParameter("@UF", CdObj.UF));
-                command.Parameters.Add(new SqlParameter("@ID", CdObj.ID));
+                command.Parameters.Add(new SqlParameter("@NOME", ProdObj.NOME));
+                command.Parameters.Add(new SqlParameter("@QUANTIDADE", ProdObj.QUANTIDADE));
+                command.Parameters.Add(new SqlParameter("@ID_CENTRODISTRIBUICAO", ID_CENTRODISTRIBUICAO));
+                command.Parameters.Add(new SqlParameter("@ID_PRODUTO", ProdObj.ID_PRODUTO));
+         
                 //abre a conexao
                 _conexao.Open();
                 //executa o comando com os parametros que foram adicionados acima
@@ -129,7 +133,7 @@ namespace Prodap.Repositorio
 
         }
 
-        public bool DeleteCentroDistribuicao(int _ID)
+        public bool DeleteProdutos(int _ID)
         {
 
             try
@@ -137,7 +141,7 @@ namespace Prodap.Repositorio
                 Connection();
 
                 _sql = string.Empty;
-                _sql = "DELETE FROM   CentroDistribuicao  WHERE ID = @ID ";
+                _sql = "DELETE FROM Produtos  WHERE ID_PRODUTO = @ID ";
 
                 SqlCommand command = new SqlCommand(_sql, _conexao);
 

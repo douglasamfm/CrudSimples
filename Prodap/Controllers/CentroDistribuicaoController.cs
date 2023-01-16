@@ -1,6 +1,7 @@
 ﻿using Prodap.Models;
 using Prodap.Repositorio;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Prodap.Controllers
@@ -33,10 +34,21 @@ namespace Prodap.Controllers
                 {
                     _repositorio = new CentroDistribuicaoRepositorio();
 
-                    if (_repositorio.AddCentroDistribuicao(_CdObj)) 
+
+                    bool mExists = (_repositorio.ListarCentroDistribuicao().Any(T => T.NOME.ToUpper() == _CdObj.NOME.ToUpper()));
+
+                    if (!mExists)               
                     {
-                        ViewBag.Mensagem = "Centro de Distribuição Cadastrado com sucesso.";
-                    }                  
+                        if (_repositorio.AddCentroDistribuicao(_CdObj))
+                        {
+                            ViewBag.Mensagem = "Centro de Distribuição Cadastrado com sucesso.";
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Mensagem = "Centro de Distribuição ja existe.";
+
+                    }
 
                 }
                 return RedirectToAction("ObterListaCentroDistribuicao");
