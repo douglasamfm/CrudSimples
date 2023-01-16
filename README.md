@@ -1,7 +1,7 @@
 /*
 
 Tabelas que foram criadas ppor mim.
-Criei a tabekla de centro de distribuição para sanar a primeira parte do problema onde os produtos poderiam ser distribuidos 
+Criei a tabela de centro de distribuição para sanar a primeira parte do problema onde os produtos poderiam ser distribuidos 
 por Estado
 */
 
