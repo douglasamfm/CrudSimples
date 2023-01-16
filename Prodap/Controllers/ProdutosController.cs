@@ -82,7 +82,7 @@ namespace Prodap.Controllers
                     _repositorio = new ProdutosRepositorio();
                     _repositorioCD = new CentroDistribuicaoRepositorio();
 
-                    var CENTRODISTRIBUICAO = _repositorioCD.ListarCentroDistribuicao().FirstOrDefault(T => T.NOME.ToUpper() == _Prodobj.CENTRODISTRIBUICAO.ToUpper());
+                    var CENTRODISTRIBUICAO = _repositorioCD.ListarCentroDistribuicao().FirstOrDefault(T => T.NOME.ToUpper() == _Prod0bj.CENTRODISTRIBUICAO.ToUpper());
 
 
                     if (_repositorio.UpdProdutos(_Prod0bj, CENTRODISTRIBUICAO.ID))
